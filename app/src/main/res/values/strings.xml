@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Flickr Gallery</string>
+
+    <!--    PostDetails-->
+    <string name="post_details_title">Title: %s</string>
+    <string name="post_details_author">Author: %s</string>
+    <string name="post_details_published_at">Published at: %s</string>
+
+    <!--    Error Messages-->
+    <string name="error_no_internet">error_no_internet</string>
+    <string name="error_network_failed">error_network_failed</string>
+    <string name="error_network">error_network</string>
+</resources>
