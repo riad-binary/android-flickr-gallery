@@ -29,7 +29,7 @@ class MainActivity : BaseDataBindingActivity<ActivityMainBinding, MainViewModel>
     override fun initView() {
         Log.e(TAG, "initView")
 
-
+        mViewModel.getPost()
 
     }
 
