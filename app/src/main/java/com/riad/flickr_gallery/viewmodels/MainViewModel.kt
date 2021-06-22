@@ -10,6 +10,7 @@ import com.riad.flickr_gallery.App
 import com.riad.flickr_gallery.base.BaseViewModel
 import com.riad.flickr_gallery.data.models.Post
 import com.riad.flickr_gallery.utils.NoConnectivityException
+import com.riad.flickr_gallery.utils.XmlParser
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.io.ByteArrayInputStream
@@ -39,7 +40,18 @@ class MainViewModel: BaseViewModel() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     {
-                        Log.e(TAG, "getPost: " + Gson().toJson(it.string()))
+                        val inputString: String = it.string()
+                        val stream: InputStream =
+                            ByteArrayInputStream(inputString.toByteArray(StandardCharsets.UTF_8))
+                        val list = XmlParser().parse(stream)
+                        val filterList: MutableList<Post> = mutableListOf<Post>()
+                        for(item in list){
+                            if(item.link != null && (item.link.contains(".jpg") || item.link.contains(".png"))){
+                                filterList.add(item)
+                            }
+                        }
+                        postList.postValue(filterList)
+                        Log.e(TAG, "getPost: " + Gson().toJson(postList.value))
                         networkState.postValue(NetworkState.LOADED)
                     },
                     {
