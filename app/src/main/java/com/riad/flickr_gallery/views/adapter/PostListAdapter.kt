@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.riad.flickr_gallery.R
 import com.riad.flickr_gallery.data.models.Post
+import com.riad.flickr_gallery.utils.Constant
+import com.riad.flickr_gallery.views.activity.PostDetailsActivity
 
 class PostListAdapter(var context: Context) : RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
 
@@ -65,6 +67,9 @@ class PostListAdapter(var context: Context) : RecyclerView.Adapter<PostListAdapt
     override fun getItemCount() = dataList.size
 
     private fun switchToPostDetails(post: Post) {
-
+        val intent = Intent(context, PostDetailsActivity::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.putExtra(Constant.POST_ARG, post)
+        context.startActivity(intent)
     }
 }
